@@ -10,6 +10,7 @@ const response = await fetch('http://localhost:8000/api/v1/portfolio/', {
     credentials: 'include',
 })
 const content = await response.json()
+
 setPortfolios(content)
     }, [])
 
