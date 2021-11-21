@@ -1,9 +1,11 @@
 import React, { SyntheticEvent, useState } from 'react';
+import { useHistory } from 'react-router';
 
 const CreatePortfolio = () => {
     const [name, setPortfolioName] = useState('')
     const [description, setPortfolioDescription] = useState('')
     const [is_public, setPortfolioIsPublic] = useState(false)
+    const history = useHistory()
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
@@ -18,6 +20,7 @@ const CreatePortfolio = () => {
                 is_public
             })
         })
+        history.push('/')
     }
 
     return (
