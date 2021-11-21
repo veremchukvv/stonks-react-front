@@ -19,6 +19,7 @@ const Profile = () => {
                 email,
             })
         })
+        history.push('/')
     }
 
     const deleteUserHandler = async () => {
@@ -27,6 +28,7 @@ const Profile = () => {
             credentials: 'include',
             headers: {'Content-Type':'application/json'}
             })
+            auth.isAuthenticated = false
             history.push('/')
         }
 
