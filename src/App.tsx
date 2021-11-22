@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation"
 import {BrowserRouter, Route} from "react-router-dom";
 import {AuthContext} from "./context/authContext";
 import CreatePortfolio from './pages/CreatePortfolio';
+import PortfolioDetails from './pages/PortfolioDetails';
 
 function App() {
     const [name, setName] = useState('')
@@ -40,6 +41,7 @@ function App() {
             <Route path="/register" component={Register}/>
             <Route path="/profile" component={Profile}/>
             <Route path="/newPortfolio" component={CreatePortfolio} />
+            <Route path="/portfolio/:id" component={PortfolioDetails} />
       </main>
         </BrowserRouter>
     </div>
