@@ -37,7 +37,8 @@ const PortfolioDetails = () => {
             fetchStocks()
         }, [fetchStocks]
     )
-    if (!stocks.length) {
+    // if (!stocks.length || stocks === null) {
+        if (stocks === null || !stocks.length ) {
         return (
             <div>
                 You don't have stocks yet.
