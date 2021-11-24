@@ -26,7 +26,6 @@ const PortfolioList = () => {
         You don't have portfolios yes.
         Create one
         <Link to="/newPortfolio" className="btn btn-primary">Create new portfolio</Link>
-        {/* <button className="w-100 btn btn-lg btn-primary" type="submit">Create new Portfolio</button> */}
       </div>
     )
   } return (

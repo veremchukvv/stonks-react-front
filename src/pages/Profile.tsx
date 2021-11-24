@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
-import { convertTypeAcquisitionFromJson } from 'typescript';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 
 const Profile = () => {
@@ -34,17 +34,17 @@ const Profile = () => {
 
     return (
         <div>
-        <h1>Change profile data using form below</h1>
         <form onSubmit={submit}>
         <h1 className="h3 mb-3 fw-normal">Change your profile data</h1>
 
         <input className="form-control" placeholder="Name" defaultValue={auth.userName}
         />
 
-        <input type="email" className="form-control" placeholder="Email address" required
+        <input type="email" className="form-control" placeholder="Enter new email" required
                onChange = {e => setEmail(e.target.value)}
         />
         <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
+        <Link to="/" className="w-100 btn btn-lg btn-primary" style={{ marginTop: 3}}>Back</Link>
         <h1>Or delete your profile</h1>
         <button
               className="w-100 btn btn-lg btn-danger"
