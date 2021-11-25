@@ -43,7 +43,7 @@ const PortfolioDetails = () => {
             <div>
                 You don't have stocks yet.
                 Please add any
-                <Link to="/market" className="btn btn-primary">Go to the market</Link>
+                <Link to="/stockmarket" className="btn btn-primary">Go to the market</Link>
             </div>
         )
     }
@@ -88,7 +88,7 @@ const PortfolioDetails = () => {
                     <FundList /> */}
                 <div style={{display: 'flex', justifyContent: 'center', padding: '0 2rem'}}>
                     <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }}>Back</Link>
-                    <Link to="/market" className="btn btn-primary" style={{ marginRight: 10 }}>Market</Link>
+                    <Link to="/stockmarket" className="btn btn-primary" style={{ marginRight: 10 }}>Market</Link>
                     <Link to="/" className="btn btn-danger" style={{ marginRight: 10 }} onClick={deletePortfolio}>Delete</Link>
                 </div>
             </div>

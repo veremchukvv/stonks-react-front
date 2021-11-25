@@ -9,6 +9,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {AuthContext} from "./context/authContext";
 import CreatePortfolio from './pages/CreatePortfolio';
 import PortfolioDetails from './pages/PortfolioDetails';
+import StockMarket from './pages/StockMarket';
 
 function App() {
     const [name, setName] = useState('')
@@ -42,6 +43,7 @@ function App() {
             <Route path="/profile" component={Profile}/>
             <Route path="/newPortfolio" component={CreatePortfolio} />
             <Route path="/portfolio/:id" component={PortfolioDetails} />
+            <Route path="/stockmarket" component={StockMarket}/>
       </main>
         </BrowserRouter>
     </div>
