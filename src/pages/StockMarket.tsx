@@ -19,7 +19,7 @@ const StockMarket = () => {
             }, [fetchStocks]
         )
 
-
+        console.log(stocks)
     return (
         <div>
              <h1 className="h3 mb-3 fw-normal">Here you can choose stocks for your portfolio</h1>    
@@ -33,7 +33,21 @@ const StockMarket = () => {
             <th>Cost</th>
             <th>Currency</th>
           </tr>
-        </thead>       
+        </thead>    
+        <tbody>
+          {stocks.map((stocks, index) => {
+            return (
+              <tr key={stocks.id}>
+                <td>{index + 1}</td>
+                <td>{stocks.name}</td>
+                <td>{stocks.ticker}</td>
+                <td>{stocks.type}</td>
+                <td>{stocks.cost}</td>
+                <td>{stocks.currency}</td>
+              </tr>
+            )
+          })}
+        </tbody>   
         </table>
         </div>
     );
