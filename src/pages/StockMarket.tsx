@@ -32,8 +32,8 @@ const StockMarket = () => {
       <table>
         <thead>
           <tr>
-            <th>Ticker</th>
             <th>Name</th>
+            <th>Ticker</th>
             <th>Type</th>
             <th>Cost</th>
             <th>Currency</th>
@@ -43,7 +43,7 @@ const StockMarket = () => {
           {stocks.map((stocks, index) => {
             return (
               <tr key={stocks.id}>
-                <td>{stocks.name}</td>
+                <td><Link to={`/stockmarket/${stocks.id}`}>{stocks.name}</Link></td>
                 <td>{stocks.ticker}</td>
                 <td>{stocks.type}</td>
                 <td>{stocks.cost}</td>
@@ -53,7 +53,6 @@ const StockMarket = () => {
           })}
         </tbody>   
         </table>
-        {/* <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }} onClick={back}>Back</Link> */}
         <button className="w-100 btn btn-lg btn-primary" onClick={back}>Back</button>
         </div>
     );

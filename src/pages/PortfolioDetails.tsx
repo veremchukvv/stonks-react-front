@@ -18,7 +18,7 @@ const PortfolioDetails = () => {
         }
 
     const [stocks, setStocks] = useState<any[]>([])
-    const [portftolio, setPortfolio] = useState<any[]>([])
+    // const [portftolio, setPortfolio] = useState<any[]>([])
     const portfolioId = useParams<any>().id
     const fetchStocks = useCallback(async () => {
         const response = await fetch(`http://localhost:8000/api/v1/portfolio/${portfolioId}`, {
@@ -28,7 +28,7 @@ const PortfolioDetails = () => {
         const content = await response.json()
 
         setStocks(content["StocksResp"])
-        setPortfolio(content["PortfolioResp"])
+        // setPortfolio(content["PortfolioResp"])
     }, [portfolioId]
     )
 

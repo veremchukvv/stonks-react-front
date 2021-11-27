@@ -10,6 +10,7 @@ import {AuthContext} from "./context/authContext";
 import CreatePortfolio from './pages/CreatePortfolio';
 import PortfolioDetails from './pages/PortfolioDetails';
 import StockMarket from './pages/StockMarket';
+import StockDetails from './pages/StockDetails';
 
 function App() {
     const [name, setName] = useState('')
@@ -43,7 +44,8 @@ function App() {
             <Route path="/profile" component={Profile}/>
             <Route path="/newPortfolio" component={CreatePortfolio} />
             <Route path="/portfolio/:id" component={PortfolioDetails} />
-            <Route path="/stockmarket" component={StockMarket}/>
+            <Route path="/stockmarket" exact component={StockMarket}/>
+            <Route path="/stockmarket/:id" component={StockDetails}/>
       </main>
         </BrowserRouter>
     </div>
