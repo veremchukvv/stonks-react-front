@@ -1,6 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 const StockMarket = () => {
+    const history = useHistory()
+
+    const back = async () => {
+      history.goBack()
+    }
+
     const [stocks, setStocks] = useState<any[]>([])
 
     const fetchStocks = useCallback(async () => {
@@ -26,7 +33,6 @@ const StockMarket = () => {
       <table>
         <thead>
           <tr>
-            <th>Id</th>
             <th>Ticker</th>
             <th>Name</th>
             <th>Type</th>
@@ -38,7 +44,6 @@ const StockMarket = () => {
           {stocks.map((stocks, index) => {
             return (
               <tr key={stocks.id}>
-                <td>{index + 1}</td>
                 <td>{stocks.name}</td>
                 <td>{stocks.ticker}</td>
                 <td>{stocks.type}</td>
@@ -49,6 +54,8 @@ const StockMarket = () => {
           })}
         </tbody>   
         </table>
+        {/* <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }} onClick={back}>Back</Link> */}
+        <button className="w-100 btn btn-lg btn-primary" onClick={back}>Back</button>
         </div>
     );
 };
