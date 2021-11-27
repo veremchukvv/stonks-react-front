@@ -26,7 +26,6 @@ const StockMarket = () => {
             }, [fetchStocks]
         )
 
-        console.log(stocks)
     return (
         <div>
              <h1 className="h3 mb-3 fw-normal">Here you can choose stocks for your portfolio</h1>    
