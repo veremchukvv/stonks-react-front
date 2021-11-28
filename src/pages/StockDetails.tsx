@@ -1,9 +1,12 @@
-import React, { SyntheticEvent, useCallback, useEffect, useState } from 'react';
+import React, { SyntheticEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import NumericInput from 'react-numeric-input';
+import { AuthContext } from '../context/authContext';
 
 const StockDetails = () => {
     const history = useHistory()
+    const auth = useContext(AuthContext)
+    const portfolioId = auth.portfolioID.toString()
 
     const back = async () => {
         history.goBack()
@@ -12,18 +15,24 @@ const StockDetails = () => {
       const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch('http://localhost:8000/users/update', {
+        await fetch('http://localhost:8000/api/v1/stockmarket/deal', {
             credentials: 'include',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                stock_id: stockId,
+                stock_amount: stocksAmount,
+                portfolio_id: parseInt(portfolioId),
+            })
         })
-        history.push('/')
+        history.goBack()
     }
 
     const [stocksAmount, setStocksAmount] = useState(0)
     const [stockPrice, setStockPrice] = useState(0)
 
     const [stock, setStock] = useState(null)
-    const stockId = useParams<any>().id
+    const stockId = parseInt(useParams<any>().id)
     const fetchStock = useCallback(async () => {
         const response = await fetch(`http://localhost:8000/api/v1/stockmarket/${stockId}`, {
             headers: { 'Content-Type': 'application/json' },

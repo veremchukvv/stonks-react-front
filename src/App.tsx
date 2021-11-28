@@ -16,6 +16,7 @@ function App() {
     const [name, setName] = useState('')
     const isAuthenticated = !!name
     const userName = name
+    const portfolioID = 0
 
     useEffect(() => {
         (
@@ -33,7 +34,7 @@ function App() {
         )
 
   return (
-      <AuthContext.Provider value={{userName, isAuthenticated}}>
+      <AuthContext.Provider value={{userName, isAuthenticated, portfolioID}}>
     <div className="App">
         <BrowserRouter>
             <Navigation name={name} setName={setName} />

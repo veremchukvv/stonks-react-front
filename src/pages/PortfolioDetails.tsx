@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import StockList from '../components/StockList';
 // import BondList from '../components/BondList';
 // import FundList from '../components/FundList';
 import { Link, useHistory, useParams } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 
 const PortfolioDetails = () => {
+    const auth = useContext(AuthContext)
 
     const history = useHistory()
 
@@ -20,6 +22,7 @@ const PortfolioDetails = () => {
     const [stocks, setStocks] = useState<any[]>([])
     // const [portftolio, setPortfolio] = useState<any[]>([])
     const portfolioId = useParams<any>().id
+    auth.portfolioID = portfolioId
     const fetchStocks = useCallback(async () => {
         const response = await fetch(`http://localhost:8000/api/v1/portfolio/${portfolioId}`, {
             headers: { 'Content-Type': 'application/json' },
