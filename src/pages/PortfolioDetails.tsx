@@ -163,13 +163,14 @@ const PortfolioDetails = () => {
                     </div>
                     <button onClick={handleClick} className="btn btn-primary" style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem', marginLeft: 35, marginTop: 5 }}>Toggle display mode</button>
                 </div>)
-        }
-        {/* <h1>Stocks</h1>
+                        /* <h1>Stocks</h1>
                     <StockList />
                     <h1>Bonds</h1>
                     <BondList />
                     <h1>Funds</h1>
-                    <FundList /> */}
+                    <FundList /> */
+        }
+
     };
 }
 
