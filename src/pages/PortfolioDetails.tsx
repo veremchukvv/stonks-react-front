@@ -4,7 +4,6 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import FundList from '../components/FundList';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
-import Switch from "react-switch";
 import * as _ from "lodash";
 
 const PortfolioDetails = () => {
@@ -44,26 +43,6 @@ const PortfolioDetails = () => {
     }, [portfolioId]
     )
 
-//     const getDeals = (async () => {
-//     let grouped = _.groupBy(deals, 'ticker')
-//     let tickers = _.uniqBy(deals, 'ticker')
-
-//     let stocksInfo = tickers.map(({ value, amount, ...item }) => item);
-
-//     let values = _.map(grouped, (objs: any, key: any) => ({
-//         'ticker': key,
-//         'value': _.sumBy(objs, 'value')
-//     }))
-
-//     let amounts = _.map(grouped, (objs: any, key: any) => ({
-//         'ticker': key,
-//         'amount': _.sumBy(objs, 'amount')
-//     }))
-
-//     let res = _.merge(stocksInfo, values, amounts)
-//     setStocks(res)
-// })
-
     useEffect(
         () => {
             fetchStocks()
@@ -92,15 +71,6 @@ const PortfolioDetails = () => {
         }, [deals]
     )
 
-    console.log(deals)
-    console.log(stocks)
-
-    // if (deals != null) {
-
-       
-    // }
-
-    // if (!stocks.length || stocks === null) {
     if (deals === null || !deals.length) {
         return (
             <div>
