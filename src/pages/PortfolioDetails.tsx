@@ -4,12 +4,18 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import FundList from '../components/FundList';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
+import Switch from "react-switch";
 import * as _ from "lodash";
 
 const PortfolioDetails = () => {
     const auth = useContext(AuthContext)
 
     const history = useHistory()
+
+    const [toggle, setToggle] = useState(false)
+    const handleClick = () => {
+        setToggle(toggle => !toggle);
+    };
 
     const deletePortfolio = async () => {
         await fetch(`http://localhost:8000/api/v1/portfolio/${portfolioId}`, {
@@ -21,7 +27,7 @@ const PortfolioDetails = () => {
     }
 
     const [deals, setDeals] = useState<any[]>([])
-    // const [stocks, setStocks] = useState<any[]>([])
+    const [stocks, setStocks] = useState<any[]>([])
     // const [portftolio, setPortfolio] = useState<any[]>([])
     const portfolioId = useParams<any>().id
     auth.portfolioID = portfolioId
@@ -38,30 +44,61 @@ const PortfolioDetails = () => {
     }, [portfolioId]
     )
 
+//     const getDeals = (async () => {
+//     let grouped = _.groupBy(deals, 'ticker')
+//     let tickers = _.uniqBy(deals, 'ticker')
+
+//     let stocksInfo = tickers.map(({ value, amount, ...item }) => item);
+
+//     let values = _.map(grouped, (objs: any, key: any) => ({
+//         'ticker': key,
+//         'value': _.sumBy(objs, 'value')
+//     }))
+
+//     let amounts = _.map(grouped, (objs: any, key: any) => ({
+//         'ticker': key,
+//         'amount': _.sumBy(objs, 'amount')
+//     }))
+
+//     let res = _.merge(stocksInfo, values, amounts)
+//     setStocks(res)
+// })
+
     useEffect(
         () => {
             fetchStocks()
         }, [fetchStocks]
     )
 
-    if (deals != null) {
+    useEffect(
+        () => {
+            let grouped = _.groupBy(deals, 'ticker')
+            let tickers = _.uniqBy(deals, 'ticker')
+        
+            let stocksInfo = tickers.map(({ value, amount, ...item }) => item);
+        
+            let values = _.map(grouped, (objs: any, key: any) => ({
+                'ticker': key,
+                'value': _.sumBy(objs, 'value')
+            }))
+        
+            let amounts = _.map(grouped, (objs: any, key: any) => ({
+                'ticker': key,
+                'amount': _.sumBy(objs, 'amount')
+            }))
+        
+            let res = _.merge(stocksInfo, values, amounts)
+            setStocks(res)
+        }, [deals]
+    )
 
-        let grouped = _.groupBy(deals, 'ticker')
-        let tickers = _.uniqBy(deals, 'ticker')
+    console.log(deals)
+    console.log(stocks)
 
-        let stocksInfo = tickers.map(({ value, amount, ...item }) => item);
+    // if (deals != null) {
 
-        let values = _.map(grouped, (objs:any, key:any) => ({
-            'ticker': key,
-            'value': _.sumBy(objs, 'value') }))
-
-        let amounts = _.map(grouped, (objs:any, key: any) => ({
-            'ticker': key,
-            'amount' : _.sumBy(objs, 'amount')
-        }))
-
-        let res = _.merge(stocksInfo, values, amounts)
-    }
+       
+    // }
 
     // if (!stocks.length || stocks === null) {
     if (deals === null || !deals.length) {
@@ -74,9 +111,11 @@ const PortfolioDetails = () => {
         )
     }
     else {
-        return (
-            <div>
-                {/* <table>
+        if (toggle === true) {
+            return (
+                <div>
+                    <h2>aggregated deals view</h2>
+                    <table>
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -105,54 +144,64 @@ const PortfolioDetails = () => {
                             )
                         })}
                     </tbody>
-                </table> */}
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Ticker</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Cost</th>
-                            <th>Amount</th>
-                            <th>Total Cost</th>
-                            <th>Currency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {deals.map((deal, index) => {
-                            return (
-                                <tr key={deal.id}>
-                                    <td>{index + 1}</td>
-                                    <td>{deal.ticker}</td>
-                                    <td>{deal.name}</td>
-                                    <td>{deal.type}</td>
-                                    <td>{deal.cost}</td>
-                                    <td>{deal.amount}</td>
-                                    <td>{deal.value}</td>
-                                    <td>{deal.currency}</td>
-                                </tr>
-                            )
-                        })}
-                    </tbody>
                 </table>
-                {/* <h1>Stocks</h1>
+                        <div style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem' }}>
+                        <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }}>Back</Link>
+                        <Link to="/stockmarket" className="btn btn-primary" style={{ marginRight: 10 }}>Market</Link>
+                        <Link to="/" className="btn btn-danger" style={{ marginRight: 10 }} onClick={deletePortfolio}>Delete</Link>
+                    </div>
+                    <button onClick={handleClick} className="btn btn-primary" style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem', marginLeft: 35, marginTop: 5 }}>Toggle display mode</button>
+                </div>)
+        } else {
+            return (
+                <div>
+                    <h2>detailed deals view</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Ticker</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Cost</th>
+                                <th>Amount</th>
+                                <th>Total Cost</th>
+                                <th>Currency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {deals.map((deal, index) => {
+                                return (
+                                    <tr key={deal.id}>
+                                        <td>{index + 1}</td>
+                                        <td>{deal.ticker}</td>
+                                        <td>{deal.name}</td>
+                                        <td>{deal.type}</td>
+                                        <td>{deal.cost}</td>
+                                        <td>{deal.amount}</td>
+                                        <td>{deal.value}</td>
+                                        <td>{deal.currency}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                    <div style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem' }}>
+                        <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }}>Back</Link>
+                        <Link to="/stockmarket" className="btn btn-primary" style={{ marginRight: 10 }}>Market</Link>
+                        <Link to="/" className="btn btn-danger" style={{ marginRight: 10 }} onClick={deletePortfolio}>Delete</Link>
+                    </div>
+                    <button onClick={handleClick} className="btn btn-primary" style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem', marginLeft: 35, marginTop: 5 }}>Toggle display mode</button>
+                </div>)
+        }
+        {/* <h1>Stocks</h1>
                     <StockList />
                     <h1>Bonds</h1>
                     <BondList />
                     <h1>Funds</h1>
                     <FundList /> */}
-                <div style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem' }}>
-                    <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }}>Back</Link>
-                    <Link to="/stockmarket" className="btn btn-primary" style={{ marginRight: 10 }}>Market</Link>
-                    <Link to="/" className="btn btn-danger" style={{ marginRight: 10 }} onClick={deletePortfolio}>Delete</Link>
-                </div>
-            </div>
-
-        );
-    }
-
-};
+    };
+}
 
 
 export default PortfolioDetails;
