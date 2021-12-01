@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
 const DealsDetail = () => {
@@ -29,11 +29,21 @@ const DealsDetail = () => {
     )
 
     const closeDeal = async () => {
-
+        await fetch(`http://localhost:8000/api/v1/${dealId}`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        history.goBack()
     }
 
     const deleteDeal = async () => {
-        
+        await fetch(`http://localhost:8000/api/v1/deals/${dealId}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        history.goBack()
     }
 
 
