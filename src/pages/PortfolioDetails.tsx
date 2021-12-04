@@ -139,12 +139,14 @@ const PortfolioDetails = () => {
                                 <th>Total Cost</th>
                                 <th>Currency</th>
                                 <th>deal time</th>
+                                <th>profit (money)</th>
+                                <th>profit (percent)</th>
                             </tr>
                         </thead>
                         <tbody>
                             {deals.map((deal, index) => {
                                 return (
-                                    <tr key={deal.id}>
+                                    <tr key={deal.id} className={deal.is_closed ? "strikeout" : ""} >
                                         <td><Link to={`/deals/${deal.id}`}>{index + 1}</Link></td>
                                         <td>{deal.ticker}</td>
                                         <td>{deal.name}</td>
@@ -154,6 +156,8 @@ const PortfolioDetails = () => {
                                         <td>{deal.value}</td>
                                         <td>{deal.currency}</td>
                                         <td>{format(new Date(deal.created_at), 'dd-MM-yyyy/kk:mm')}</td>
+                                        <td className={deal.profit_closed > 0 ? "profit" : "loss" }>{deal.profit_closed !== 0 ? deal.profit_closed : "" }</td>
+                                        <td className={deal.profit_closed > 0 ? "profit" : "loss" }>{deal.percent_closed !== 0 ? deal.percent_closed: "" }</td>
                                     </tr>
                                 )
                             })}

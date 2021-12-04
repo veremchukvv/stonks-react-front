@@ -28,7 +28,7 @@ const DealsDetails = () => {
     )
 
     const closeDeal = async () => {
-        await fetch(`http://localhost:8000/api/v1/${dealId}`, {
+        await fetch(`http://localhost:8000/api/v1/deals/${dealId}`, {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }
