@@ -12,6 +12,7 @@ import PortfolioDetails from './pages/PortfolioDetails';
 import StockMarket from './pages/StockMarket';
 import StockDetails from './pages/StockDetails';
 import DealsDetails from './pages/DealsDetail';
+import ClosedDealsDetails from './pages/ClosedDealsDetail';
 
 function App() {
     const [name, setName] = useState('')
@@ -44,7 +45,8 @@ function App() {
             <Route path="/login" component={() => <Login setName={setName}/>}/>
             <Route path="/register" component={Register}/>
             <Route path="/profile" component={Profile}/>
-            <Route path="/deals/:id" component={DealsDetails} />
+            <Route path="/deals/:id" exact component={DealsDetails} />
+            <Route path="/deals/closed/:id" component={ClosedDealsDetails} />
             <Route path="/newPortfolio" component={CreatePortfolio} />
             <Route path="/portfolio/:id" component={PortfolioDetails} />
             <Route path="/stockmarket" exact component={StockMarket}/>

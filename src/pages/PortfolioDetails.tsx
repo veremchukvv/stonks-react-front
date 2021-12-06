@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 // import StockList from '../components/StockList';
 // import BondList from '../components/BondList';
 // import FundList from '../components/FundList';
@@ -178,7 +178,7 @@ const PortfolioDetails = () => {
                                         <td>{deal.currency}</td>
                                         <td>{format(new Date(deal.opened_at), 'dd-MM-yyyy/kk:mm')}</td>
                                         <td className={deal.profit > 0 ? "profit" : "loss" }>{deal.profit !== 0 ? deal.profit : "" }</td>
-                                        <td className={deal.profit > 0 ? "profit" : "loss" }>{deal.percent!== 0 ? deal.percent: "" }</td>
+                                        <td className={deal.percent > 0 ? "profit" : "loss" }>{deal.percent !== 0 ? deal.percent: "" }</td>
                                     </tr>
                                 )
                             })}
@@ -193,6 +193,7 @@ const PortfolioDetails = () => {
                                 <th>Ticker</th>
                                 <th>Name</th>
                                 <th>Type</th>
+                                <th>Sell cost</th>
                                 <th>Amount</th>
                                 <th>Value</th>
                                 <th>Currency</th>
@@ -206,17 +207,17 @@ const PortfolioDetails = () => {
                                 return (
                                     // <tr key={deal.id} className={deal.is_closed ? "strikeout" : ""} >
                                         <tr key={closedDeal.id}>
-                                        <td><Link to={`/closed/${closedDeal.id}`}>{index + 1}</Link></td>
+                                        <td><Link to={`/deals/closed/${closedDeal.id}`}>{index + 1}</Link></td>
                                         <td>{closedDeal.ticker}</td>
                                         <td>{closedDeal.name}</td>
                                         <td>{closedDeal.type}</td>
-                                        <td>{closedDeal.cost}</td>
+                                        <td>{closedDeal.sell_cost}</td>
                                         <td>{closedDeal.amount}</td>
                                         <td>{closedDeal.value}</td>
                                         <td>{closedDeal.currency}</td>
                                         <td>{format(new Date(closedDeal.closed_at), 'dd-MM-yyyy/kk:mm')}</td>
                                         <td className={closedDeal.profit > 0 ? "profit" : "loss" }>{closedDeal.profit !== 0 ? closedDeal.profit : "" }</td>
-                                        <td className={closedDeal.profit > 0 ? "profit" : "loss" }>{closedDeal.percent!== 0 ? closedDeal.percent: "" }</td>
+                                        <td className={closedDeal.percent > 0 ? "profit" : "loss" }>{closedDeal.percent !== 0 ? closedDeal.percent: "" }</td>
                                     </tr>
                                 )
                             })}
