@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 // import StockList from '../components/StockList';
 // import BondList from '../components/BondList';
 // import FundList from '../components/FundList';
@@ -28,6 +28,7 @@ const PortfolioDetails = () => {
 
     const [deals, setDeals] = useState<any[]>([])
     const [stocks, setStocks] = useState<any[]>([])
+    const [closedDeals, setClosedDeals] = useState<any[]>([])
     // const [portftolio, setPortfolio] = useState<any[]>([])
     const portfolioId = useParams<any>().id
     auth.portfolioID = portfolioId
@@ -38,7 +39,20 @@ const PortfolioDetails = () => {
         })
         const content = await response.json()
 
-        setDeals(content["StocksResp"])
+        setDeals(content["DealResp"])
+        // setPortfolio(content["PortfolioResp"])
+
+    }, [portfolioId]
+    )
+
+    const fetchClosedDeals = useCallback(async () => {
+        const response = await fetch(`http://localhost:8000/api/v1/portfolio/closed/${portfolioId}`, {
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        })
+        const content = await response.json()
+
+        setClosedDeals(content)
         // setPortfolio(content["PortfolioResp"])
 
     }, [portfolioId]
@@ -48,6 +62,12 @@ const PortfolioDetails = () => {
         () => {
             fetchStocks()
         }, [fetchStocks]
+    )
+
+    useEffect(
+        () => {
+            fetchClosedDeals()
+        }, [fetchClosedDeals]
     )
 
     useEffect(
@@ -85,7 +105,7 @@ const PortfolioDetails = () => {
         if (toggle === true) {
             return (
                 <div>
-                    <h2>aggregated deals view</h2>
+                    <h2>aggregated opened deals view</h2>
                     <table>
                         <thead>
                             <tr>
@@ -126,7 +146,7 @@ const PortfolioDetails = () => {
         } else {
             return (
                 <div>
-                    <h2>detailed deals view</h2>
+                    <h2>detailed opened deals view</h2>
                     <table>
                         <thead>
                             <tr>
@@ -146,7 +166,8 @@ const PortfolioDetails = () => {
                         <tbody>
                             {deals.map((deal, index) => {
                                 return (
-                                    <tr key={deal.id} className={deal.is_closed ? "strikeout" : ""} >
+                                    // <tr key={deal.id} className={deal.is_closed ? "strikeout" : ""} >
+                                        <tr key={deal.id}>
                                         <td><Link to={`/deals/${deal.id}`}>{index + 1}</Link></td>
                                         <td>{deal.ticker}</td>
                                         <td>{deal.name}</td>
@@ -155,14 +176,52 @@ const PortfolioDetails = () => {
                                         <td>{deal.amount}</td>
                                         <td>{deal.value}</td>
                                         <td>{deal.currency}</td>
-                                        <td>{format(new Date(deal.created_at), 'dd-MM-yyyy/kk:mm')}</td>
-                                        <td className={deal.profit_closed > 0 ? "profit" : "loss" }>{deal.profit_closed !== 0 ? deal.profit_closed : "" }</td>
-                                        <td className={deal.profit_closed > 0 ? "profit" : "loss" }>{deal.percent_closed !== 0 ? deal.percent_closed: "" }</td>
+                                        <td>{format(new Date(deal.opened_at), 'dd-MM-yyyy/kk:mm')}</td>
+                                        <td className={deal.profit > 0 ? "profit" : "loss" }>{deal.profit !== 0 ? deal.profit : "" }</td>
+                                        <td className={deal.profit > 0 ? "profit" : "loss" }>{deal.percent!== 0 ? deal.percent: "" }</td>
                                     </tr>
                                 )
                             })}
                         </tbody>
                     </table>
+                    <h2>Detailed closed deals view</h2>
+                    {closedDeals !== null &&
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Ticker</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Value</th>
+                                <th>Currency</th>
+                                <th>Close time</th>
+                                <th>profit (money)</th>
+                                <th>profit (percent)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {closedDeals.map((closedDeal, index) => {
+                                return (
+                                    // <tr key={deal.id} className={deal.is_closed ? "strikeout" : ""} >
+                                        <tr key={closedDeal.id}>
+                                        <td><Link to={`/closed/${closedDeal.id}`}>{index + 1}</Link></td>
+                                        <td>{closedDeal.ticker}</td>
+                                        <td>{closedDeal.name}</td>
+                                        <td>{closedDeal.type}</td>
+                                        <td>{closedDeal.cost}</td>
+                                        <td>{closedDeal.amount}</td>
+                                        <td>{closedDeal.value}</td>
+                                        <td>{closedDeal.currency}</td>
+                                        <td>{format(new Date(closedDeal.closed_at), 'dd-MM-yyyy/kk:mm')}</td>
+                                        <td className={closedDeal.profit > 0 ? "profit" : "loss" }>{closedDeal.profit !== 0 ? closedDeal.profit : "" }</td>
+                                        <td className={closedDeal.profit > 0 ? "profit" : "loss" }>{closedDeal.percent!== 0 ? closedDeal.percent: "" }</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>}
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem' }}>
                         <Link to="/" className="btn btn-primary" style={{ marginRight: 10 }}>Back</Link>
                         <Link to="/stockmarket" className="btn btn-primary" style={{ marginRight: 10 }}>Market</Link>
