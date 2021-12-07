@@ -54,12 +54,12 @@ const DealsDetails = () => {
             <p>Ticker: {deal['ticker']}</p>
             <p>Stock type: {deal['type']}</p>
             <p>Stock description: {deal['description']}</p>
-            <p>Stock buy cost: not implemented yet</p>
+            <p>Stock buy cost: {deal['buy_cost']}</p>
             <p>Stock current cost: {deal['cost']}</p>
-            <p>income (money): not implemented yet</p>
-            <p>income (%): not implemented yet</p>
+            <p>income (money): {deal['profit']}</p>
+            <p>income (%): {deal['percent']}</p>
             <p>Stock currency: {deal['currency']}</p>
-            <p>deal time: {format(new Date(deal['created_at']), 'dd-MM-yyyy/kk:mm')}</p>
+            <p>deal opened at: {format(new Date(deal['opened_at']), 'dd-MM-yyyy/kk:mm')}</p>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '0 2rem' }}>
                 <button className="btn btn-primary" onClick={back} style={{ display: 'flex', justifyContent: 'center', marginTop: 10,  marginRight: 10}}>Back</button>
                 <button className="btn btn-primary" onClick={closeDeal} style={{ display: 'flex', justifyContent: 'center', marginTop: 10,  marginRight: 10 }}>Close deal</button>

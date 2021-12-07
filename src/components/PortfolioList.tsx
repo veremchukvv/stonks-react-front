@@ -38,7 +38,12 @@ const PortfolioList = () => {
             <th>Total RUB assets value</th>
             <th>Total USD assets value</th>
             <th>Total EUR assets value</th>
-            <th>Open</th>
+            <th>Total RUB profit</th>
+            <th>Total USD profit</th>
+            <th>Total EUR profit</th>
+            <th>Total RUB percent</th>
+            <th>Total USD percent</th>
+            <th>Total EUR percent</th>
           </tr>
         </thead>
 
@@ -46,14 +51,17 @@ const PortfolioList = () => {
           {portfolios.map((portfolio, index) => {
             return (
               <tr key={portfolio.id}>
-                <td>{index + 1}</td>
+                <td><Link to={`/portfolio/${portfolio.id}`}>{index + 1}</Link></td>
                 <td>{portfolio.name}</td>
                 <td>{portfolio.assets_rub}</td>
                 <td>{portfolio.assets_usd}</td>
                 <td>{portfolio.assets_eur}</td>
-                <td>
-                  <Link to={`/portfolio/${portfolio.id}`}>Открыть</Link>
-                </td>
+                <td className={portfolio.profit_rub > 0 ? "profit" : "loss" }>{portfolio.profit_rub}</td>
+                <td className={portfolio.profit_usd > 0 ? "profit" : "loss" }>{portfolio.profit_usd}</td>
+                <td className={portfolio.profit_eur > 0 ? "profit" : "loss" }>{portfolio.profit_eur}</td>
+                <td className={portfolio.percent_rub > 0 ? "profit" : "loss" }>{portfolio.percent_rub}</td>
+                <td className={portfolio.percent_usd > 0 ? "profit" : "loss" }>{portfolio.percent_usd}</td>
+                <td className={portfolio.percent_eur > 0 ? "profit" : "loss" }>{portfolio.percent_eur}</td>
               </tr>
             )
           })}
