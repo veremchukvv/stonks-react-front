@@ -10,7 +10,7 @@ const CreatePortfolio = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch('http://localhost:8000/api/v1/portfolio/', {
+        await fetch('http://localhost:8000/api/v1/portfolios/', {
             method: 'POST',
             credentials: 'include',
             headers: {'Content-Type':'application/json'},

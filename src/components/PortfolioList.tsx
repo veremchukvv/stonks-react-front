@@ -5,7 +5,7 @@ const PortfolioList = () => {
   const [portfolios, setPortfolios] = useState<any[]>([])
 
   const fetchPortfolios = useCallback(async () => {
-    const response = await fetch('http://localhost:8000/api/v1/portfolio/', {
+    const response = await fetch('http://localhost:8000/api/v1/portfolios/', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     })
@@ -51,7 +51,7 @@ const PortfolioList = () => {
           {portfolios.map((portfolio, index) => {
             return (
               <tr key={portfolio.id}>
-                <td><Link to={`/portfolio/${portfolio.id}`}>{index + 1}</Link></td>
+                <td><Link to={`/portfolios/${portfolio.id}`}>{index + 1}</Link></td>
                 <td>{portfolio.name}</td>
                 <td>{portfolio.assets_rub}</td>
                 <td>{portfolio.assets_usd}</td>

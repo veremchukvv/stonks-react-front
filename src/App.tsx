@@ -48,7 +48,7 @@ function App() {
                         <Route path="/deals/:id" exact component={DealsDetails} />
                         <Route path="/deals/closed/:id" component={ClosedDealsDetails} />
                         <Route path="/newPortfolio" component={CreatePortfolio} />
-                        <Route path="/portfolio/:id" component={PortfolioDetails} />
+                        <Route path="/portfolios/:id" component={PortfolioDetails} />
                         <Route path="/stockmarket" exact component={StockMarket} />
                         <Route path="/stockmarket/:id" component={StockDetails} />
                     </main>

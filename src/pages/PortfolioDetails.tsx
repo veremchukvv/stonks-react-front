@@ -18,7 +18,7 @@ const PortfolioDetails = () => {
     };
 
     const deletePortfolio = async () => {
-        await fetch(`http://localhost:8000/api/v1/portfolio/${portfolioId}`, {
+        await fetch(`http://localhost:8000/api/v1/portfolios/${portfolioId}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -33,7 +33,7 @@ const PortfolioDetails = () => {
     const portfolioId = useParams<any>().id
     auth.portfolioID = portfolioId
     const fetchStocks = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/portfolio/${portfolioId}`, {
+        const response = await fetch(`http://localhost:8000/api/v1/portfolios/${portfolioId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
@@ -46,7 +46,7 @@ const PortfolioDetails = () => {
     )
 
     const fetchClosedDeals = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/portfolio/closed/${portfolioId}`, {
+        const response = await fetch(`http://localhost:8000/api/v1/portfolios/closed/${portfolioId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
