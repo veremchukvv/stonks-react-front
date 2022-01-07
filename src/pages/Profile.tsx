@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 
 const Profile = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const [email, setEmail] = useState('')
     const history = useHistory()
     const auth = useContext(AuthContext)
@@ -11,7 +13,7 @@ const Profile = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch('http://localhost:8000/users/update', {
+        await fetch(`${REACT_APP_BACKEND_URL}/users/update`, {
             method: 'PATCH',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -23,7 +25,7 @@ const Profile = () => {
     }
 
     const deleteUserHandler = async () => {
-        await fetch('http://localhost:8000/users/delete', {
+        await fetch(`${REACT_APP_BACKEND_URL}/users/delete`, {
             method: 'DELETE',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }

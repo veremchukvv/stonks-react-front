@@ -2,6 +2,8 @@ import React, { SyntheticEvent, useState } from 'react';
 import { useHistory } from 'react-router';
 
 const CreatePortfolio = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const [name, setPortfolioName] = useState('')
     const [description, setPortfolioDescription] = useState('')
     const [is_public, setPortfolioIsPublic] = useState(false)
@@ -10,7 +12,7 @@ const CreatePortfolio = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch('http://localhost:8000/api/v1/portfolios/', {
+        await fetch(`${REACT_APP_BACKEND_URL}/api/v1/portfolios/`, {
             method: 'POST',
             credentials: 'include',
             headers: {'Content-Type':'application/json'},

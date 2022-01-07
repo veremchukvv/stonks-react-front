@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 const StockMarket = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const history = useHistory()
 
     const back = async () => {
@@ -11,7 +13,7 @@ const StockMarket = () => {
     const [stocks, setStocks] = useState<any[]>([])
 
     const fetchStocks = useCallback(async () => {
-        const response = await fetch('http://localhost:8000/api/v1/stockmarket/', {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/stockmarket/`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
           })
