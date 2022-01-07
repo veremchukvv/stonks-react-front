@@ -1,7 +1,8 @@
-import React, {SyntheticEvent, useState} from 'react';
-import { Redirect } from 'react-router-dom';
+import React, {SyntheticEvent, useContext, useState} from 'react';
+import { useHistory } from 'react-router-dom';
 import googleLogo from "../assets/google_logo.png"
 import vkLogo from "../assets/vk_logo.png"
+import { AuthContext } from '../context/authContext';
 
 const googleLogin = () => {
     window.open("http://localhost:8000/users/oauth/google", "_self");
@@ -11,11 +12,12 @@ const vkLogin = () => {
     window.open("http://localhost:8000/users/oauth/vk", "_self");
 }
 
-const Login = (props: {setName: (name: string) => void}) => {
+    const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [redirect, setRedirect] = useState(false)
+    const history = useHistory()
+    const auth = useContext(AuthContext)
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
@@ -29,16 +31,10 @@ const Login = (props: {setName: (name: string) => void}) => {
                 password
             })
         })
-
         const content = await response.json()
-        setRedirect(true)
-        props.setName(content.name)
-
-    }
-
-    if (redirect)
-    {
-        return <Redirect to="/"/>
+        auth.userName = content.name
+        history.push("/")
+        history.go(0)
     }
 
     return (

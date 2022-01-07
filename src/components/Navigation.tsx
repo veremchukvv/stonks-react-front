@@ -1,9 +1,11 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useContext, useState} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import {AuthContext} from "../context/authContext";
 
-const Navigation = (props: {name: string, setName: (name: string) => void }) => {
+    const Navigation = () => {
     const auth = useContext(AuthContext)
+    const history = useHistory()
+    const [userName, setName] = useState(auth.userName)
 
     const logout = async () => {
         await fetch('http://localhost:8000/users/signout', {
@@ -11,7 +13,10 @@ const Navigation = (props: {name: string, setName: (name: string) => void }) => 
             headers: {'Content-Type':'application/json'},
             credentials: 'include',
             })
-        props.setName('')
+        setName('')
+        auth.userName = userName
+        history.push("/")
+        history.go(0)
         }
 
     let menu
