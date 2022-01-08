@@ -20,7 +20,7 @@ const DealsDetails = () => {
         })
         const content = await response.json()
         setDeal(content)
-    }, [dealId]
+    }, [dealId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(

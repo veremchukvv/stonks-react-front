@@ -20,7 +20,7 @@ const StockMarket = () => {
           const content = await response.json()
       
           setStocks(content)
-        }, [])
+        }, [REACT_APP_BACKEND_URL])
 
         useEffect(
             () => {

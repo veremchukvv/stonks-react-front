@@ -14,7 +14,7 @@ const PortfolioList = () => {
     const content = await response.json()
 
     setPortfolios(content)
-  }, [])
+  }, [REACT_APP_BACKEND_URL])
 
   useEffect(
     () => {

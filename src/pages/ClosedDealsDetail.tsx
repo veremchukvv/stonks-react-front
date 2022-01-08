@@ -20,7 +20,7 @@ const ClosedDealsDetails = () => {
         })
         const content = await response.json()
         setClosedDeal(content)
-    }, [closedDealId]
+    }, [closedDealId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(

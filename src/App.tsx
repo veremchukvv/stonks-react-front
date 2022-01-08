@@ -14,9 +14,14 @@ import StockDetails from './pages/StockDetails';
 import DealsDetails from './pages/DealsDetail';
 import ClosedDealsDetails from './pages/ClosedDealsDetail';
 
+// declare var process: {
+//     env: {
+//       REACT_APP_ALT_BACKEND_URL: string
+//     }
+//   }
+
 function App() {
     const { REACT_APP_BACKEND_URL} = process.env
-
     const [userName, setName] = useState('')
     const isAuthenticated = !!userName
     const portfolioID = 0
@@ -34,7 +39,7 @@ function App() {
                 setName(content.name)
             }
         )()
-    }, [auth.userName]
+    }, [auth.userName, REACT_APP_BACKEND_URL]
         )
 
     return (

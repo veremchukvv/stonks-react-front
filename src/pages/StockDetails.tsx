@@ -42,7 +42,7 @@ const StockDetails = () => {
         })
         const content = await response.json()
         setStock(content)
-    }, [stockId]
+    }, [stockId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(

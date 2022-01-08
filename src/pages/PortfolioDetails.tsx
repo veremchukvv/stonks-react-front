@@ -43,7 +43,7 @@ const PortfolioDetails = () => {
         setDeals(content["DealResp"])
         // setPortfolio(content["PortfolioResp"])
 
-    }, [portfolioId]
+    }, [portfolioId, REACT_APP_BACKEND_URL]
     )
 
     const fetchClosedDeals = useCallback(async () => {
@@ -56,7 +56,7 @@ const PortfolioDetails = () => {
         setClosedDeals(content)
         // setPortfolio(content["PortfolioResp"])
 
-    }, [portfolioId]
+    }, [portfolioId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(
