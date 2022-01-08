@@ -15,6 +15,7 @@ import DealsDetails from './pages/DealsDetail';
 import ClosedDealsDetails from './pages/ClosedDealsDetail';
 
 function App() {
+    const { REACT_APP_BACKEND_URL} = process.env
     const [userName, setName] = useState('')
     const isAuthenticated = !!userName
     const portfolioID = 0
@@ -23,7 +24,7 @@ function App() {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://localhost:8000/users/user', {
+                const response = await fetch(`${REACT_APP_BACKEND_URL}/users/user`, {
                     headers: {'Content-Type':'application/json'},
                     credentials: 'include',
                 })
@@ -32,7 +33,7 @@ function App() {
                 setName(content.name)
             }
         )()
-    }, [auth.userName]
+    }, [auth.userName, REACT_APP_BACKEND_URL]
         )
 
     return (

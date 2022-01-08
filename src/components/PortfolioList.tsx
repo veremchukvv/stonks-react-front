@@ -2,17 +2,19 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const PortfolioList = () => {
+  const { REACT_APP_BACKEND_URL} = process.env
+
   const [portfolios, setPortfolios] = useState<any[]>([])
 
   const fetchPortfolios = useCallback(async () => {
-    const response = await fetch('http://localhost:8000/api/v1/portfolios/', {
+    const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/portfolios/`, {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     })
     const content = await response.json()
 
     setPortfolios(content)
-  }, [])
+  }, [REACT_APP_BACKEND_URL])
 
   useEffect(
     () => {

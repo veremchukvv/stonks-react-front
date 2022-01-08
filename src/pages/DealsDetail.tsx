@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
 const DealsDetails = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const [deal, setDeal] = useState(null)
     const dealId = parseInt(useParams<any>().id)
 
@@ -12,13 +14,13 @@ const DealsDetails = () => {
     }
 
     const fetchDeal = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/deals/${dealId}`, {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/deals/${dealId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
         const content = await response.json()
         setDeal(content)
-    }, [dealId]
+    }, [dealId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(
@@ -28,7 +30,7 @@ const DealsDetails = () => {
     )
 
     const closeDeal = async () => {
-        await fetch(`http://localhost:8000/api/v1/deals/${dealId}`, {
+        await fetch(`${REACT_APP_BACKEND_URL}/api/v1/deals/${dealId}`, {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }
@@ -37,7 +39,7 @@ const DealsDetails = () => {
     }
 
     const deleteDeal = async () => {
-        await fetch(`http://localhost:8000/api/v1/deals/${dealId}`, {
+        await fetch(`${REACT_APP_BACKEND_URL}/api/v1/deals/${dealId}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }

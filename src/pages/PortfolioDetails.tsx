@@ -8,17 +8,18 @@ import * as _ from "lodash";
 import { format } from "date-fns";
 
 const PortfolioDetails = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+    
     const auth = useContext(AuthContext)
-
     const history = useHistory()
-
     const [toggle, setToggle] = useState(false)
+
     const handleClick = () => {
         setToggle(toggle => !toggle);
     };
 
     const deletePortfolio = async () => {
-        await fetch(`http://localhost:8000/api/v1/portfolios/${portfolioId}`, {
+        await fetch(`${REACT_APP_BACKEND_URL}/api/v1/portfolios/${portfolioId}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -33,7 +34,7 @@ const PortfolioDetails = () => {
     const portfolioId = useParams<any>().id
     auth.portfolioID = portfolioId
     const fetchStocks = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/portfolios/${portfolioId}`, {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/portfolios/${portfolioId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
@@ -42,11 +43,11 @@ const PortfolioDetails = () => {
         setDeals(content["DealResp"])
         // setPortfolio(content["PortfolioResp"])
 
-    }, [portfolioId]
+    }, [portfolioId, REACT_APP_BACKEND_URL]
     )
 
     const fetchClosedDeals = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/portfolios/closed/${portfolioId}`, {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/portfolios/closed/${portfolioId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
@@ -55,7 +56,7 @@ const PortfolioDetails = () => {
         setClosedDeals(content)
         // setPortfolio(content["PortfolioResp"])
 
-    }, [portfolioId]
+    }, [portfolioId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(

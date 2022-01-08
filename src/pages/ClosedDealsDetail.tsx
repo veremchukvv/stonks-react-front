@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { format } from "date-fns";
 
 const ClosedDealsDetails = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const [closedDeal, setClosedDeal] = useState(null)
     const closedDealId = parseInt(useParams<any>().id)
 
@@ -12,13 +14,13 @@ const ClosedDealsDetails = () => {
     }
 
     const fetchClosedDeal = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/closed/${closedDealId}`, {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/closed/${closedDealId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
         const content = await response.json()
         setClosedDeal(content)
-    }, [closedDealId]
+    }, [closedDealId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(
@@ -28,7 +30,7 @@ const ClosedDealsDetails = () => {
     )
 
     const deleteClosedDeal = async () => {
-        await fetch(`http://localhost:8000/api/v1/closed/${closedDealId}`, {
+        await fetch(`${REACT_APP_BACKEND_URL}/api/v1/closed/${closedDealId}`, {
             method: 'DELETE',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' }

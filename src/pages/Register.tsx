@@ -2,6 +2,8 @@ import React, {SyntheticEvent, useState} from 'react';
 import { Redirect } from 'react-router-dom';
 
 const Register = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const [name, setName] = useState('')
     const [lastname, setLastname] = useState('')
     const [email, setEmail] = useState('')
@@ -11,7 +13,7 @@ const Register = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch('http://localhost:8000/users/signup', {
+        await fetch(`${REACT_APP_BACKEND_URL}/users/signup`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({

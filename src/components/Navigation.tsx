@@ -3,12 +3,14 @@ import {Link, useHistory} from 'react-router-dom';
 import {AuthContext} from "../context/authContext";
 
     const Navigation = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const auth = useContext(AuthContext)
     const history = useHistory()
     const [userName, setName] = useState(auth.userName)
 
     const logout = async () => {
-        await fetch('http://localhost:8000/users/signout', {
+        await fetch(`${REACT_APP_BACKEND_URL}/users/signout`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             credentials: 'include',

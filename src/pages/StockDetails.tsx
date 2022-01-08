@@ -4,6 +4,8 @@ import NumericInput from 'react-numeric-input';
 import { AuthContext } from '../context/authContext';
 
 const StockDetails = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
+
     const history = useHistory()
     const auth = useContext(AuthContext)
     const portfolioId = auth.portfolioID.toString()
@@ -15,7 +17,7 @@ const StockDetails = () => {
       const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch('http://localhost:8000/api/v1/stockmarket/deal', {
+        await fetch(`${REACT_APP_BACKEND_URL}/api/v1/stockmarket/deal`, {
             credentials: 'include',
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -34,13 +36,13 @@ const StockDetails = () => {
     const [stock, setStock] = useState(null)
     const stockId = parseInt(useParams<any>().id)
     const fetchStock = useCallback(async () => {
-        const response = await fetch(`http://localhost:8000/api/v1/stockmarket/${stockId}`, {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/stockmarket/${stockId}`, {
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include'
         })
         const content = await response.json()
         setStock(content)
-    }, [stockId]
+    }, [stockId, REACT_APP_BACKEND_URL]
     )
 
     useEffect(

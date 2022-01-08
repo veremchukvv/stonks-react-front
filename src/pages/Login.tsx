@@ -13,6 +13,7 @@ const vkLogin = () => {
 }
 
     const Login = () => {
+    const { REACT_APP_BACKEND_URL} = process.env
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -22,7 +23,7 @@ const vkLogin = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        const response = await fetch('http://localhost:8000/users/signin', {
+        const response = await fetch(`${REACT_APP_BACKEND_URL}/users/signin`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             credentials: 'include',
