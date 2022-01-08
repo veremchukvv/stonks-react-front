@@ -14,12 +14,6 @@ import StockDetails from './pages/StockDetails';
 import DealsDetails from './pages/DealsDetail';
 import ClosedDealsDetails from './pages/ClosedDealsDetail';
 
-// declare var process: {
-//     env: {
-//       REACT_APP_ALT_BACKEND_URL: string
-//     }
-//   }
-
 function App() {
     const { REACT_APP_BACKEND_URL} = process.env
     const [userName, setName] = useState('')
