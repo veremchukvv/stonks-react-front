@@ -4,17 +4,17 @@ import googleLogo from "../assets/google_logo.png"
 import vkLogo from "../assets/vk_logo.png"
 import { AuthContext } from '../context/authContext';
 
+const { REACT_APP_BACKEND_URL} = process.env
+
 const googleLogin = () => {
-    window.open("http://localhost:8000/users/oauth/google", "_self");
+    window.open(`${REACT_APP_BACKEND_URL}/users/oauth/google`, "_self");
 }
 
 const vkLogin = () => {
-    window.open("http://localhost:8000/users/oauth/vk", "_self");
+    window.open(`${REACT_APP_BACKEND_URL}/users/oauth/vk`, "_self");
 }
 
     const Login = () => {
-    const { REACT_APP_BACKEND_URL} = process.env
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const history = useHistory()
