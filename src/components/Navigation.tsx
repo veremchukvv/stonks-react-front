@@ -53,6 +53,10 @@ import {AuthContext} from "../context/authContext";
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">Home</Link>
                     <div>
+                        <p className="nav-link">$ = {auth.usdRate} ({auth.usdChange}) € = {auth.eurRate} ({auth.eurChange})</p>
+                        {/* <p className="nav-link"></p> */}
+                    </div>
+                    <div>
                         {menu}
                     </div>
                 </div>
